@@ -1,0 +1,1 @@
+The Quake map generator creates Quake map files which can be compiled with the Quake tools to produce Quake levels (bsp's).  It can take as an argument a image as a template.

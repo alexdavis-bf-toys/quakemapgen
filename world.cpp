@@ -39,7 +39,7 @@ World::World( const QString &file ) : map("worldspawn") {
 	printf("}\n");
 	
 	QValueList<Entity>::iterator eit;
-  for ( eit = room.entities.begin(); eit != room.entities.end(); ++eit )
+	for ( eit = room.entities.begin(); eit != room.entities.end(); ++eit )
 			printf("%s\n", (*eit).toString().latin1());
 
 }
