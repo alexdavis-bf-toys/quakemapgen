@@ -138,10 +138,13 @@ void ImageTemplateRoom::draw(QRgb p, int w, int h){
 	}
 
 	if( p == SPAWN ){
-		Entity newEntity("info_player_deathmatch");
-    newEntity.setOrigin(w*64, h*64, 65);
-    entities.append(newEntity);
-		//makeEntity("info_player_deathmatch", w*64, h*64, 65);
+		Entity newEntity("info_player_start");
+		newEntity.setOrigin(w*64, h*64, 65);
+		entities.append(newEntity);
+
+		Entity dmEntity("info_player_deathmatch");
+		dmEntity.setOrigin(w*64, h*64, 65);
+		entities.append(dmEntity);
 	}	
 
 	int j=1+(int) (5.0*rand()/(RAND_MAX+1.0));
