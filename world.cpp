@@ -31,22 +31,17 @@ World::World( const QString &file ) : map("worldspawn") {
 	map.addFlag("wad", "quake101.wad");
 	map.addFlag("message", "testWold");
 
-	printf("%s\n", map.toString(false).latin1());
-	
-	ImageTemplateRoom room(file, "pngroom");
-	printf("%s\n", room.toString().latin1());
-	
-	printf("}\n");
-	
-	QValueList<Entity>::iterator eit;
-	for ( eit = room.entities.begin(); eit != room.entities.end(); ++eit )
-			printf("%s\n", (*eit).toString().latin1());
-
+  if(!file.isEmpty()){
+		ImageTemplateRoom room(file, "pngroom" );
+		objects.append(room);	  
+	}
+	else
+		generateWorld();
 }
 
-void World::output(){
-	// Build world
-/*	QValueList<Room> objects;
+void World::generateWorld(){
+// Build world
+/*
 	
 	for(int i=0;i<5;i++ ){
 		Object j;
@@ -67,10 +62,13 @@ void World::output(){
 		(*it).light();
 		(*it).addItems();
 	}
+  */
+}
 
-	// Output World
+void World::output(){
 	printf("%s\n", map.toString(false).latin1());
 	
+	QValueList<Object>::iterator it;
   for ( it = objects.begin(); it != objects.end(); ++it )
 		printf("%s\n", (*it).toString().latin1());
 
@@ -81,6 +79,5 @@ void World::output(){
   for ( it = objects.begin(); it != objects.end(); ++it )
 		for ( eit = (*it).entities.begin(); eit != (*it).entities.end(); ++eit )
 			printf("%s\n", (*eit).toString().latin1());
-*/
 }
 

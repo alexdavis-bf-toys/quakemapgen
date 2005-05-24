@@ -48,7 +48,7 @@ Room::Room(const int width, const int height, const int depth,
 	Block backWall = makeBox(x, y+height-thickness, z, width, /*height*/thickness, depth, skin, QString("Room %1, block backWall").arg(name));
 	append(backWall);
 
-	skin = "CEILING1_3";
+	skin = "ceiling1_3";
 	Block celeine = makeBox(x, y, z+depth, width, height, /*depth*/thickness, skin, QString("Room %1, block celing").arg(name));
 	append(celeine);
 

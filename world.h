@@ -19,16 +19,23 @@
 #ifndef WORLD_H
 #define WORLD_H
 
-#include "entity.h"
+#include "object.h"
+#include <qvaluelist.h>
 
+/**
+ * Like most things in the Quake map structor the World is a entity
+ */
 class World {
 
 public:
-	World(const QString &file );
+	World( const QString &file );
 	void output();
 	
 private:
+	void generateWorld();
+	QValueList<Object> objects;
 	Entity map;
+
 };
 
 #endif // QWORLD_H

@@ -70,18 +70,18 @@ void ImageTemplateRoom::draw(QRgb p, int w, int h){
 		return;
 	
 	// Floor
- 	QString floorChoice = "AFLOOR3_1";
-	if(p == ZONE1) floorChoice="AFLOOR3_1";
-	if(p == ZONE2) floorChoice="AFLOOR1_4";
-	if(p == ZONE3) floorChoice="AFLOOR1_8";
-	if(p == ZONE4) floorChoice="AFLOOR1_3";
+ 	QString floorChoice = "afloor3_1";
+	if(p == ZONE1) floorChoice="afloor3_1";
+	if(p == ZONE2) floorChoice="afloor1_4";
+	if(p == ZONE3) floorChoice="afloor1_8";
+	if(p == ZONE4) floorChoice="afloor1_3";
 	//Block box = makeBox(w*64, h*64, -6, 64, 64, 6, floorChoice, QString("Floor %1").arg(objectName));
 	//append(box);
 	
 	//drawBox(w*64,h*64, -6, 64, 64, 6, floorChoice.latin1());
 
 	// Celine
-	QString celingTexture = "CEILING1_3";
+	QString celingTexture = "ceiling1_3";
 	int pull = getHeight(w,h);
 	if(pull > 12){
 			celingTexture = "SKY4";
