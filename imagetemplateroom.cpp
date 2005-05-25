@@ -30,7 +30,26 @@
 #define ZONE4 -8388480
 
 ImageTemplateRoom::ImageTemplateRoom(const QString &fileName, const QString &name) : Object(name) {
-
+	itemLimit["item_armor1"] = 2;
+	itemLimit["item_armor2"] = 2;
+	itemLimit["item_armorInv"] = 1;
+	itemLimit["item_cells"] = 10;
+	itemLimit["item_rockets"] = 10;
+	itemLimit["item_shells"] = 10;
+	itemLimit["item_signil"] = 0;
+	itemLimit["item_spikes"] = 10;
+	itemLimit["item_health"] = 100;
+	itemLimit["item_artifact_invisibility"] = 1;
+	itemLimit["item_artifact_super_damage"] = 1;
+	itemLimit["item_artifact_invulnerability"] = 1;
+	
+	itemLimit["supershotgun"] = 2;
+	itemLimit["nailgun"] = 2;
+	itemLimit["supernailgun"] = 2;
+	itemLimit["grenadelauncher"] = 2;
+	itemLimit["rocketlauncher"] = 2;
+	itemLimit["lightning"] = 1;
+	
 	imageFile.load(fileName);
 
 	for(int i=imageFile.width()-1; i >= 0; i--) {
@@ -152,14 +171,15 @@ void ImageTemplateRoom::draw(QRgb p, int w, int h){
 	if(j<=2){
     Entity light("light");
     light.setOrigin(w*64+32, h*64+32, 32+pull*10);
-    light.addFlag("light", "200");
+    light.addFlag("light", "170");
     entities.append(light);
 	}
 	
 	// Add some random weapons
 	int g=1+(int) (40.0*rand()/(RAND_MAX+1.0));
 
-  if( random(10) == 1 ){
+	static int totalTeleports = 0;
+  if( random(10) == 1 && totalTeleports <= 3){
 	  static int teleportCount = 1;
 		static QValueList<Vertex> startPoints;
 		if(p != WALL &&
@@ -173,7 +193,8 @@ void ImageTemplateRoom::draw(QRgb p, int w, int h){
 		}
 		
 		if(startPoints.count() > 10){
-			qDebug("teleport");
+			totalTeleports++;
+						qDebug("teleport");
 			//Vertex end( w*64+32, h*64+32, 8 );
 			//qDebug("teleport making! %d %d %d %d %d %d", end.x, end.y, end.z, start.x, start.y, start.z);
 			Vertex end = startPoints.front();
@@ -217,26 +238,33 @@ void ImageTemplateRoom::draw(QRgb p, int w, int h){
 			default:
 					weapon = "item_health"; break;
 		}
-		Entity newEntity(weapon);
-    newEntity.setOrigin(w*64+16, h*64+16, 64);
-    entities.append(newEntity);
-		//makeEntity(weapon.latin1(), w*64+32, h*64+32, 32);
+		if(itemCount[weapon] < itemLimit[weapon]){
+			itemCount[weapon]++;
+			Entity newEntity(weapon);
+    	newEntity.setOrigin(w*64+16, h*64+16, 64);
+    	entities.append(newEntity);
+		}
+		else qDebug("itemCount: %d, itemLimit:%d", itemCount[weapon], itemLimit[weapon]);
 	}
 
 	if( g == 2 ) {
 		static int gods = 0;
 		if(gods < 2){
 			gods++;
-		QString weapon = "info_armor1";
-		switch(random(2)){
-			case 1: weapon = "item_artifact_invisibility"; break;
-			case 2: weapon = "item_artifact_super_damage"; break;
-			//case 3: weapon = "item_artifact_invulnerability"; break;
-		}
-		Entity newEntity(weapon);
-    newEntity.setOrigin(w*64+32, h*64+32, 64);
-    entities.append(newEntity);
-		//makeEntity(weapon.latin1(), w*64+32, h*64+32, 32);
+			QString weapon = "info_armor1";
+			switch(random(2)){
+				case 1: weapon = "item_artifact_invisibility"; break;
+				case 2: weapon = "item_artifact_super_damage"; break;
+				//case 3: weapon = "item_artifact_invulnerability"; break;
+			}
+		
+			if(itemCount[weapon] < itemLimit[weapon]){
+			  itemCount[weapon]++;
+				Entity newEntity(weapon);
+  		  newEntity.setOrigin(w*64+32, h*64+32, 64);
+   	 		entities.append(newEntity);
+			}
+			else qDebug("itemCount: %d, itemLimit:%d", itemCount[weapon], itemLimit[weapon]);
 		}
 	}
 
@@ -249,11 +277,14 @@ void ImageTemplateRoom::draw(QRgb p, int w, int h){
 			case 4: weapon = "rocketlauncher"; break;
 			case 5: weapon = "lightning"; break;
 		}
-		weapon = QString("weapon_")+weapon;
-		Entity newEntity(weapon);
-    newEntity.setOrigin(w*64+32, h*64+32, 64);
-    entities.append(newEntity);
-		//makeEntity(weapon.latin1(), w*64+32, h*64+32, 32);
+	  if(itemCount[weapon] < itemLimit[weapon]){
+		  itemCount[weapon]++;
+			weapon = QString("weapon_")+weapon;
+			Entity newEntity(weapon);
+ 			newEntity.setOrigin(w*64+32, h*64+32, 64);
+  	  entities.append(newEntity);
+		}
+		else qDebug("itemCount: %d, itemLimit:%d", itemCount[weapon], itemLimit[weapon]);
 	}
 }
 

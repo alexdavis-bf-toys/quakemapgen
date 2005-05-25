@@ -43,6 +43,11 @@ public:
 	void drawTriangle(int x, int y, int z, int width, int height, int depth, const QString &skin, bool hor, bool top);
 	
 	QImage imageFile;
+
+private:
+	QMap<QString,int> itemLimit;
+	QMap<QString,int> itemCount;
+
 };
 
 #endif // IMAGETEMPLATEROOM_H
