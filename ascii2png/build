@@ -1,0 +1,6 @@
+genmaze 10 10 > foo.maze;
+cat foo.maze | ./ascii2png
+~/source/quakemapgen/quakemapgen out.png > ~/.wine/fake_windows/BSP/Quake/Maps/foo.map;
+(cd ~/.wine/fake_windows/BSP/Quake/Maps/;./build foo)
+(cd ~/.wine/fake_windows/BSP/Quake/Maps/;cp foo.bsp ~/)
+cp ~/foo.bsp ~/fuhquake/id1/maps/
