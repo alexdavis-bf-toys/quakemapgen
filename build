@@ -1,0 +1,7 @@
+(cd genmaze; genmaze 10 10 > ../foo.maze)
+(cd ascii2png; cat ../foo.maze | ./ascii2png)
+quakemapgen out.png > foo.map;
+qfbsp foo.map
+light foo.bsp
+vis foo.bsp
+cp ~/foo.bsp ~/fuhquake/id1/maps/
