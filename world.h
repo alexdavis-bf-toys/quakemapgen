@@ -20,21 +20,21 @@
 #define WORLD_H
 
 #include "object.h"
-#include <qvaluelist.h>
+#include <qlist.h>
 
 /**
  * Like most things in the Quake map structor the World is a entity
  */
 class World {
 
-public:
-	World( const QString &file );
-	void output();
-	
-private:
-	void generateWorld();
-	QValueList<Object> objects;
-	Entity map;
+  public:
+    World(const QString & file);
+    void output();
+
+  private:
+    void generateWorld();
+      QList < Object > objects;
+    Entity map;
 
 };
 

@@ -21,10 +21,11 @@
 
 #include "object.h"
 
-class Teleport : public Object {
+class Teleport:public Object {
 
-public:
-	Teleport(const Vertex &start, const Vertex &end, const QString &name=QString(), int angle=0);
+  public:
+    Teleport(const Vertex & start, const Vertex & end, const QString & name =
+             QString(), int angle = 0);
 };
 
 #endif // TELEPORT_H

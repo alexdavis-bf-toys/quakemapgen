@@ -19,9 +19,10 @@
 
 #include "world.h"
 
-int main( int argc, char ** argv ) {
-	World world( argv[1] );
-	world.output();
-	return 0;
+int main(int argc, char **argv)
+{
+    World world(argv[1]);
+    world.output();
+    return 0;
 }
 

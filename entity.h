@@ -20,7 +20,7 @@
 #define ENTITY_H
 
 #include "block.h"
-#include <qvaluelist.h>
+#include <qlist.h>
 #include <qmap.h>
 
 /**
@@ -38,21 +38,21 @@
  */
 class Entity {
 
-public:
-	Entity();
-	Entity(const QString &className);
-	virtual ~Entity();
+  public:
+    Entity();
+    Entity(const QString & className);
+      virtual ~ Entity();
 
-	void setOrigin(const int x, const int y, const int z);
-	void move(const int x, const int y, const int z);
-	void addFlag(const QString &key, const QString &value=QString());
-	virtual QString toString(bool close=true);
+    void setOrigin(const int x, const int y, const int z);
+    void move(const int x, const int y, const int z);
+    void addFlag(const QString & key, const QString & value = QString());
+    virtual QString toString(bool close = true);
 
-	Blocks blocks;
+    Blocks blocks;
 
-protected:
-	Vertex origin;
-	QMap<QString, QString> keys;
+  protected:
+      Vertex origin;
+      QMap < QString, QString > keys;
 };
 
 #endif // ENTITY_H

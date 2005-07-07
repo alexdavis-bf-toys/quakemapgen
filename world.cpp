@@ -23,23 +23,26 @@
 #include "stairs.h"
 #include "room.h"
 #include "entity.h"
+#include <qtextstream.h>
 #include <stdlib.h>
 
-World::World( const QString &file ) : map("worldspawn") {
-	srandom(time(0) * getpid());
-	
-	map.addFlag("wad", "quake101.wad");
-	map.addFlag("message", "testWold");
+World::World(const QString & file):map("worldspawn")
+{
+    srandom(time(0) * getpid());
 
-  if(!file.isEmpty()){
-		ImageTemplateRoom room(file, "pngroom" );
-		objects.append(room);	  
-	}
-	else
-		generateWorld();
+    map.addFlag("wad", "quake101.wad");
+    map.addFlag("message", "testWold");
+
+    if (!file.isEmpty()) {
+        ImageTemplateRoom room(file, "pngroom");
+        objects.append(room);
+    }
+    else
+        generateWorld();
 }
 
-void World::generateWorld(){
+void World::generateWorld()
+{
 // Build world
 /*
 	
@@ -56,7 +59,7 @@ void World::generateWorld(){
 		objects.append(room);
 	}
 	
-	QValueList<Room>::iterator it;
+	QList<Room>::iterator it;
   for ( it = objects.begin(); it != objects.end(); ++it ){
 		(*it).addSpawnPoint();
 		(*it).light();
@@ -65,19 +68,21 @@ void World::generateWorld(){
   */
 }
 
-void World::output(){
-	printf("%s\n", map.toString(false).latin1());
-	
-	QValueList<Object>::iterator it;
-  for ( it = objects.begin(); it != objects.end(); ++it )
-		printf("%s\n", (*it).toString().latin1());
+void World::output()
+{
+    QTextStream cout(stdout, QIODevice::WriteOnly);
+    cout << map.toString(false) << endl;
 
-	printf("}\n");
-	
-	// Output entities
-	QValueList<Entity>::iterator eit;
-  for ( it = objects.begin(); it != objects.end(); ++it )
-		for ( eit = (*it).entities.begin(); eit != (*it).entities.end(); ++eit )
-			printf("%s\n", (*eit).toString().latin1());
+    QList < Object >::iterator it;
+    for (it = objects.begin(); it != objects.end(); ++it)
+        cout << (*it).toString() << endl;
+
+    printf("}\n");
+
+    // Output entities
+    QList < Entity >::iterator eit;
+    for (it = objects.begin(); it != objects.end(); ++it)
+        for (eit = (*it).entities.begin(); eit != (*it).entities.end(); ++eit)
+            cout << (*eit).toString() << endl;
 }
 

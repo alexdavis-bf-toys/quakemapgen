@@ -19,25 +19,27 @@
 
 #include "stairs.h"
 
-Stairs::Stairs(const int stairsHeight, const int width, const int stairsDepth, const QString &name, int steps ) : Object(name) {
-				
-	// 16 is the *magical* number the players can climb without jumping
-	if(steps == 0)
-		steps = stairsDepth/16;
-			
-	//Stairs s(64, 512, 256, "test");
-		int x=0;
-		int y=0;
-		int z=0;
-		QString skin = "GROUND1_6";
-	
-	int height = stairsHeight/steps; 
-	//int width = stairsWidth/steps;
-	int depth = stairsDepth/steps;
-	for(int i=0;i<steps; i++){
-		y = i*(stairsHeight/steps);
-		z = i*(stairsDepth/steps);
-		
+Stairs::Stairs(const int stairsHeight, const int width, const int stairsDepth,
+               const QString & name, int steps):Object(name)
+{
+
+    // 16 is the *magical* number the players can climb without jumping
+    if (steps == 0)
+        steps = stairsDepth / 16;
+
+    //Stairs s(64, 512, 256, "test");
+    int x = 0;
+    int y = 0;
+    int z = 0;
+    QString skin = "GROUND1_6";
+
+    int height = stairsHeight / steps;
+    //int width = stairsWidth/steps;
+    int depth = stairsDepth / steps;
+    for (int i = 0; i < steps; i++) {
+        y = i * (stairsHeight / steps);
+        z = i * (stairsDepth / steps);
+
 /*
 		Plane frontLeft( Vertex(x,0,0),  Vertex(x,1,0), Vertex(x,0,1), skin);
 		Plane frontRight( Vertex(0,y,0),  Vertex(0,y,1), Vertex(1,y,0), skin);
@@ -56,9 +58,12 @@ Stairs::Stairs(const int stairsHeight, const int width, const int stairsDepth, c
 		box.planes.append(backRight);
 		box.planes.append(backLeft);
 */
-		Block box = makeBox(x, y, z, width, height, depth, skin, QString("Stair %1, step %2").arg(name).arg(i));
-		// testing
-		//box.move(64,64);
-		append(box);
-	}
+        Block box =
+            makeBox(x, y, z, width, height, depth, skin,
+                    QString("Stair %1, step %2").arg(name).arg(i));
+        // testing
+        //box.move(64,64);
+        append(box);
+    }
 }
+

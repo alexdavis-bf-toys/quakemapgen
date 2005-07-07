@@ -26,37 +26,41 @@
 #include <stdlib.h>
 class Entity;
 
-class Object : public Blocks {
+class Object:public Blocks {
 
-public:
-	Object( const QString &name=QString() );
-	virtual ~Object();
+  public:
+    Object(const QString & name = QString());
+      virtual ~ Object();
 
-	virtual QString toString();
-	void move(const int x, const int y, const int z);
-	
-	int x();
-	int y();
-	int z();
-	inline Vertex loc(){ return location;  };
-	
-	Block makeBox( int x, int y, int z,
-								int width, int height, int depth,
-								const QString &skin, const QString &name);
-	
-	/**
+    virtual QString toString();
+    void move(const int x, const int y, const int z);
+
+    int x();
+    int y();
+    int z();
+    inline Vertex loc() {
+        return location;
+    };
+
+    Block makeBox(int x, int y, int z,
+                  int width, int height, int depth,
+                  const QString & skin, const QString & name);
+
+        /**
 	 * @returns a number from 1 - max
 	 */
-	inline int random( const float max ){ return 1+(int) (max*rand()/(RAND_MAX+1.0));};
+    inline int random(const float max) {
+        return 1 + (int) (max * rand() / (RAND_MAX + 1.0));
+    };
 
-	void add( Object &object);
-	// List of entities in this level
-	QValueList<Entity> entities;
-	// The name of this object, used in map generation
-	QString objectName;
+    void add(Object & object);
+    // List of entities in this level
+    QList < Entity > entities;
+    // The name of this object, used in map generation
+    QString objectName;
 
-private:
-	Vertex location;
+  private:
+    Vertex location;
 
 };
 

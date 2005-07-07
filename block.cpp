@@ -19,59 +19,73 @@
 
 #include "block.h"
 
-QString Vertex::toString(){
-	return QString("( %1 %2 %3 )").arg(x).arg(y).arg(z);
+QString Vertex::toString()
+{
+    return QString("( %1 %2 %3 )").arg(x).arg(y).arg(z);
 }
 
-void Vertex::move(const int x, const int y, const int z){
-	this->x += x;
-	this->y += y;
-	this->z += z;
+void Vertex::move(const int x, const int y, const int z)
+{
+    this->x += x;
+    this->y += y;
+    this->z += z;
 }
 
-Texture::Texture() : name("GROUND1_6") {
-	x_offset = 0;
-	y_offset = 0;
-	rotation = 0;
-	x_scale = 1.0;
-	y_scale = 1.0;
+Texture::Texture():name("GROUND1_6")
+{
+    x_offset = 0;
+    y_offset = 0;
+    rotation = 0;
+    x_scale = 1.0;
+    y_scale = 1.0;
 }
 
-Texture::Texture(const QString name) : name(name){
-	x_offset = 0;
-	y_offset = 0;
-	rotation = 0;
-	x_scale = 1.0;
-	y_scale = 1.0;
+Texture::Texture(const QString name):name(name)
+{
+    x_offset = 0;
+    y_offset = 0;
+    rotation = 0;
+    x_scale = 1.0;
+    y_scale = 1.0;
 }
 
-QString Texture::toString(){
-	return QString("%1 %2 %3 %4 %5 %6").arg(name).arg(x_offset).arg(y_offset).arg(rotation).arg(x_scale).arg(y_scale);
+QString Texture::toString()
+{
+    return QString("%1 %2 %3 %4 %5 %6").arg(name).arg(x_offset).arg(y_offset).
+        arg(rotation).arg(x_scale).arg(y_scale);
 }
 
-Plane::Plane(const Vertex &corner, const Vertex &left, const Vertex &right, const QString &textureName)
-				:corner(corner), left(left), right(right), texture(textureName){
+Plane::Plane(const Vertex & corner, const Vertex & left, const Vertex & right,
+             const QString & textureName)
+:  corner(corner), left(left), right(right), texture(textureName)
+{
 }
 
-QString Plane::toString(){
-  //( 128 0 0 ) ( 128 1 0 ) ( 128 0 1 ) GROUND1_6 0 0 0 1.0 1.0
-  // 1st Point   2nd Point   3rd Point   Texture  
-	return QString("%1 %2 %3 %4").arg(corner.toString()).arg(left.toString()).arg(right.toString()).arg(texture.toString());
+QString Plane::toString()
+{
+    //( 128 0 0 ) ( 128 1 0 ) ( 128 0 1 ) GROUND1_6 0 0 0 1.0 1.0
+    // 1st Point   2nd Point   3rd Point   Texture  
+    return QString("%1 %2 %3 %4").arg(corner.toString()).arg(left.toString()).
+        arg(right.toString()).arg(texture.toString());
 }
 
-void Plane::move(const int x, const int y, const int z){
-	corner.move(x,y,z);
-	left.move(x,y,z);
-	right.move(x,y,z);
+void Plane::move(const int x, const int y, const int z)
+{
+    corner.move(x, y, z);
+    left.move(x, y, z);
+    right.move(x, y, z);
 }
 
-Block::Block(const QString &name) : name(name) {
+Block::Block(const QString & name):name(name)
+{
 
 }
 
-QString Block::toString(){
-	if(planes.count() < 4)
-		qWarning(QString("Error!  object: %1 has less then four planes!").arg(name).latin1());
+QString Block::toString()
+{
+    if (planes.count() < 4)
+        qWarning(QString("Error!  object: %1 has less then four planes!").
+                 arg(name).toLatin1().constData());
 /*
 Example:
 {
@@ -83,32 +97,35 @@ Example:
   ( 0 0 128 ) ( 0 1 128 ) ( 1 0 128 ) GROUND1_6 0 0 0 1.0 1.0
  }
 */
-	QString ret = "{";
-	if( !name.isEmpty() )
-		ret += QString("\n // %1").arg(name);
-	QValueList<Plane>::iterator it;
-  for ( it = planes.begin(); it != planes.end(); ++it )
-  	ret += QString("\n %1").arg((*it).toString());
-	ret += "\n}";
-	return ret;
+    QString ret = "{";
+    if (!name.isEmpty())
+        ret += QString("\n // %1").arg(name);
+    QList < Plane >::iterator it;
+    for (it = planes.begin(); it != planes.end(); ++it)
+        ret += QString("\n %1").arg((*it).toString());
+    ret += "\n}";
+    return ret;
 }
 
-void Block::move(const int x, const int y, const int z){
-	QValueList<Plane>::iterator it;
-  for ( it = planes.begin(); it != planes.end(); ++it )
-  	((*it).move(x,y,z));
+void Block::move(const int x, const int y, const int z)
+{
+    QList < Plane >::iterator it;
+    for (it = planes.begin(); it != planes.end(); ++it)
+        ((*it).move(x, y, z));
 }
 
-void Block::paint(const Texture &texture){
-	QValueList<Plane>::iterator it;
-  for ( it = planes.begin(); it != planes.end(); ++it )
-  	(*it).texture = texture;
+void Block::paint(const Texture & texture)
+{
+    QList < Plane >::iterator it;
+    for (it = planes.begin(); it != planes.end(); ++it)
+        (*it).texture = texture;
 }
 
-QValueList<Block> Block::subtract(Block &block){
-	/*QValueList<Block> newBlocks;
-	for(int i=0; i < block.count();i++){
+QList < Block > Block::subtract(Block & block)
+{
+    /*QList<Block> newBlocks;
+       for(int i=0; i < block.count();i++){
 
-	}*/
+       } */
 }
 

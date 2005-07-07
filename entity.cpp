@@ -19,53 +19,61 @@
 
 #include "entity.h"
 
-Entity::Entity(){
+Entity::Entity()
+{
 
 }
 
-Entity::Entity(const QString &className) {
-	keys["classname"] = className; 				
+Entity::Entity(const QString & className)
+{
+    keys["classname"] = className;
 }
 
-Entity::~Entity(){
+Entity::~Entity()
+{
 
 }
 
-void Entity::setOrigin(const int x, const int y, const int z){
-	keys["origin"] = "";
-	origin = Vertex( x,y,z );
+void Entity::setOrigin(const int x, const int y, const int z)
+{
+    keys["origin"] = "";
+    origin = Vertex(x, y, z);
 }
 
-void Entity::move(const int x, const int y, const int z){
-	origin.move( x,y,z );
+void Entity::move(const int x, const int y, const int z)
+{
+    origin.move(x, y, z);
 }
 
-void Entity::addFlag(const QString &key, const QString &value){
-	keys[key] = value;
+void Entity::addFlag(const QString & key, const QString & value)
+{
+    keys[key] = value;
 }
 
-QString Entity::toString(bool close){
-	QString ret = "{";
-	
-	// Add all the properties
-	QMap<QString,QString>::Iterator it;
-  for ( it = keys.begin(); it != keys.end(); ++it ) {
-		if( it.key() == "origin" )
-			it.data() = QString("%1 %2 %3").arg(origin.x).arg(origin.y).arg(origin.z);
-					
-		ret += QString("\n \"%1\"").arg(it.key());
-		if( !(it.data().isEmpty()) )
-			ret += QString(" \"%1\"").arg( it.data() );
-	}
+QString Entity::toString(bool close)
+{
+    QString ret = "{";
 
-	// Add all of the blocks
-	QValueList<Block>::iterator bit;
-	for ( bit = blocks.begin(); bit != blocks.end(); ++bit )
-	  ret += QString("\n%1").arg((*bit).toString());
-	
-	if(close)
-		ret += "\n}";
-	
-	return ret;
+    // Add all the properties
+    QMap < QString, QString >::Iterator it;
+    for (it = keys.begin(); it != keys.end(); ++it) {
+        if (it.key() == "origin")
+            it.value() =
+                QString("%1 %2 %3").arg(origin.x).arg(origin.y).arg(origin.z);
+
+        ret += QString("\n \"%1\"").arg(it.key());
+        if (!(it.value().isEmpty()))
+            ret += QString(" \"%1\"").arg(it.value());
+    }
+
+    // Add all of the blocks
+    QList < Block >::iterator bit;
+    for (bit = blocks.begin(); bit != blocks.end(); ++bit)
+        ret += QString("\n%1").arg((*bit).toString());
+
+    if (close)
+        ret += "\n}";
+
+    return ret;
 }
 

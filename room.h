@@ -21,23 +21,23 @@
 
 #include "object.h"
 
-class Room : public Object {
+class Room:public Object {
 
-public:
-	Room();
-	Room(const int height, const int width, const int depth,
-					const QString &name=QString(), int thickness=32 );
+  public:
+    Room();
+    Room(const int height, const int width, const int depth,
+         const QString & name = QString(), int thickness = 32);
 
-	//void addWall();
-	void light();
-	void addItems();
-	void addSpawnPoint();
-	void connectTo( Room &otherRoom );
+    //void addWall();
+    void light();
+    void addItems();
+    void addSpawnPoint();
+    void connectTo(Room & otherRoom);
 
-protected:
-	int width;
-	int height;
-	int depth;
+  protected:
+    int width;
+    int height;
+    int depth;
 
 };
 

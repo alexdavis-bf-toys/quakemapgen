@@ -22,31 +22,33 @@
 #include "object.h"
 #include <qimage.h>
 
-class ImageTemplateRoom : public Object {
+class ImageTemplateRoom:public Object {
 
-public:
-	ImageTemplateRoom(const QString &filename, const QString &name=QString());
-	
+  public:
+    ImageTemplateRoom(const QString & filename, const QString & name =
+                      QString());
+
   /**
    * Creates the box/enties at point p in the image
    */
-  void draw(QRgb p, int w, int h);
+    void draw(QRgb p, int w, int h);
 
-	/**
+        /**
 	 * @return the height that the room should be at w,h
 	 */
-	int getHeight( const int w, const int h ) const;
-	
-	/**
-   * Creates a triangle
-   */ 
-	void drawTriangle(int x, int y, int z, int width, int height, int depth, const QString &skin, bool hor, bool top);
-	
-	QImage imageFile;
+    int getHeight(const int w, const int h) const;
 
-private:
-	QMap<QString,int> itemLimit;
-	QMap<QString,int> itemCount;
+        /**
+   * Creates a triangle
+   */
+    void drawTriangle(int x, int y, int z, int width, int height, int depth,
+                      const QString & skin, bool hor, bool top);
+
+    QImage imageFile;
+
+  private:
+      QMap < QString, int >itemLimit;
+      QMap < QString, int >itemCount;
 
 };
 

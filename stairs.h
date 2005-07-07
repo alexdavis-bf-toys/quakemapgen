@@ -21,10 +21,11 @@
 
 #include "object.h"
 
-class Stairs : public Object {
+class Stairs:public Object {
 
-public:
-	Stairs(const int height, const int width, const int depth, const QString &name=QString(), int steps=0);
+  public:
+    Stairs(const int height, const int width, const int depth,
+           const QString & name = QString(), int steps = 0);
 };
 
 #endif // STAIRS_H
